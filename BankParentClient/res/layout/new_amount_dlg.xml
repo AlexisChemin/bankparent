@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/new_amount_dlg"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Montant" />
+
+    <EditText
+        android:id="@+id/amountEdit"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:digits="0123456789.,"
+       	android:layout_weight="6"
+        android:inputType="numberDecimal" >
+        <requestFocus />
+    </EditText>
+    
+        
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Motif" />
+        
+    <EditText
+        android:id="@+id/amountNote"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+       	android:layout_weight="1">
+    </EditText>
+        
+
+    <LinearLayout        
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+       		 android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+       		 android:layout_weight="1"
+            android:text="Ok" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+       		 android:layout_weight="1"
+            android:text="Annuler" />        
+        
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,1 @@
+03-29 13:21:39.339: E/AndroidRuntime(740): Caused by: java.lang.RuntimeException: Can't create handler inside thread that has not called Looper.prepare()

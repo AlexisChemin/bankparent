@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BankParent</string>
+    <string name="no_account">Pas de comptes</string>
+    <string name="operations">Opérations</string>
+    <string name="add_amount">+</string>
+    <string name="sub_amount">-</string>
+    <string name="add_amount_title">Ajouter</string>
+    <string name="sub_amount_title">Soustraire</string>
+    <string name="sync_accounts">Synchroniser</string>
+    <string name="settings">Préférences</string>
+    
+
+</resources>
