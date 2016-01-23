@@ -1,0 +1,102 @@
+-- creation de compte : /account/sync
+-- content type : application/json
+{
+"account":{"id":"violette", "name":"Violette","version":1,"sum":"21.50"},
+"operations":[{"label":"Anniversaire","nature":"add","amount":"21.50","id":"fca490c7-60ea-4d4f-9bb7-b24528b295ff"}
+]}
+	
+	
+-- reponse attendue :
+		{
+			"operations":[{"id":"fca490c7-60ea-4d4f-9bb7-b24528b295ff","version":1,"label":"Anniversaire","canceled":false,"amount":21.5,"addition":true,"nature":"add"}],
+			"account":{"name":"Violette","id":"violette","version":2,"sum":21.5}
+		}
+	
+	
+	
+	
+-- mise à jour de l'opération (changement de libelle)
+-- /account/sync
+{
+"account":{"id"="violette", "name":"Violette","version":2,"sum":"21.50"},
+"operations":[{"label":"Anniversaire Papi","nature":"add","amount":"21.50","id":"fca490c7-60ea-4d4f-9bb7-b24528b295ff"}
+	]}
+	
+	
+-- reponse attendue :
+	{
+	"account":{"name":"Violette","id":"violette","version":3,"sum":21.5},
+	"operations":[{"id":"fca490c7-60ea-4d4f-9bb7-b24528b295ff","version":2,"label":"Anniversaire Papi","canceled":false,"amount":21.5,"nature":"add"}]
+	}
+	
+	
+	
+-- synchro depuis autre autre terminal :
+-- /account/sync
+{
+"account":{"id":"violette", "name":"Violette","version":1,"sum":"20.0"},
+"operations":[{"label":"A","nature":"add","amount":"20.00","id":"Aca490c7-60ea-4d4f-9bb7-b24528b295ff"}
+	]}
+
+-- reponse attendue :
+
+	{
+	"account":{"name":"Violette","id":"violette","version":4,"sum":41.5},
+	"operations":[
+		{"id":"fca490c7-60ea-4d4f-9bb7-b24528b295ff","version":2,"label":"Anniversaire Papi","canceled":false,"amount":21.5,"nature":"add"},
+		{"id":"Aca490c7-60ea-4d4f-9bb7-b24528b295ff","version":3,"label":"A","canceled":false,"amount":20.0,"nature":"add"}
+		]
+	}
+
+
+-- synchro générale
+-- /account/sync
+{
+"account":{"id":"violette"}
+}
+
+-- reponse attendue : 
+	{
+	"account":{"name":"Violette","id":"violette","version":4,"sum":41.5},
+	"operations":[
+		{"id":"fca490c7-60ea-4d4f-9bb7-b24528b295ff","version":2,"label":"Anniversaire Papi","canceled":false,"amount":21.5,"nature":"add"},
+		{"id":"Aca490c7-60ea-4d4f-9bb7-b24528b295ff","version":3,"label":"A","canceled":false,"amount":20.0,"nature":"add"}
+		]
+	}
+	
+	
+	
+	
+-- Bug doublon
+-- 1 envoi de synchro :
+{
+"account":{"id":"test","version":17},
+"operations":[
+		{"id":"fca490c7-00","version":16,"label":"Test","canceled":false,"amount":20.0,"nature":"add"}
+		]
+}
+
+- reponse :
+{"account":{"name":null,"id":"test","sum":109.00000166893005,"version":20},
+"operations":[{"id":"edc51876-5f3b-4e37-9248-3ab921a5dbbe","label":"bb","canceled":false,"nature":"add","creationTimestamp":1414662680720,"amount":49.0,"version":17},
+{"id":"2ebb893e-261a-4a88-b7c7-595830499efc","label":"papi","canceled":false,"nature":"add","creationTimestamp":1431716070668,"amount":40.0,"version":18},
+{"id":"fca490c7-00","label":"Test","canceled":false,"nature":"add",
+  "creationTimestamp":null,"amount":20.0,"version":19}
+]}
+
+- renvoi
+{
+"account":{"id":"test","version":17},
+"operations":[
+		{"id":"fca490c7-00","version":16,"label":"Test","canceled":false,"amount":20.0,"nature":"add"}
+		]
+}
+- réponse
+{"account":{"name":"Test","id":"test","sum":129.00000166893005,"version":20},"operations":[{"id":"edc51876-5f3b-4e37-9248-3ab921a5dbbe","label":"bb","canceled":false,"nature":"add","creationTimestamp":1414662680720,"amount":49.0,"version":17}
+{"id":"2ebb893e-261a-4a88-b7c7-595830499efc","label":"papi","canceled":false,"nature":"add","creationTimestamp":1431716070668,"amount":40.0,"version":18},
+{"id":"fca490c7-00","label":"Test","canceled":false,"nature":"add","creationTimestamp":null,"amount":20.0,"version":19},
+{"id":"fca490c7-00","label":"Test","canceled":false,"nature":"add","creationTimestamp":null,"amount":20.0,"version":19}]}
+
+==> si on renvoi l'op 'fca490c7-00' est stockée autant de fois...
+
+

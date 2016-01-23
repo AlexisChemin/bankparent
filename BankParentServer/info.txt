@@ -1,0 +1,6 @@
+url :
+http://bankparent.appspot.com/
+
+
+ex :
+http://bankparent.appspot.com/accounts
